@@ -20,7 +20,7 @@ recipe.type = "recipe"
 recipe.name = nindycore.core.add_mod_tag(waterpumpID.."waterpumpjack")
 recipe.enabled = false
 recipe.ingredients = {
-    {type="item", name="steel-plate", amount=5},
+    {type="item", name="iron-plate", amount=25},
     {type="item", name="electronic-circuit", amount=5},
     {type="item", name="pipe", amount=15},
     {type="item", name="iron-gear-wheel", amount=10}
