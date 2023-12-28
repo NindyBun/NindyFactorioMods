@@ -1,6 +1,6 @@
 {
 	"name": "WaterPumpjack",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"title": "Water Pumpjack",
 	"author": "NindyBun",
 	"homepage":"",
@@ -8,6 +8,6 @@
 	"factorio_version": "1.1",
 	"dependencies": [
 		"base >= 1.1",
-		"NindyCore >= 1.0.0"
+		"NindyCore >= 1.0.1"
 	]
 }
