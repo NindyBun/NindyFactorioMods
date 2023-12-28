@@ -1,0 +1,13 @@
+{
+	"name": "WaterPumpjack",
+	"version": "1.0.0",
+	"title": "Water Pumpjack",
+	"author": "NindyBun",
+	"homepage":"",
+	"description": "Requires Nindy's Core mod.\n\nAdds a electric water pumpjack that can be placed on land.",
+	"factorio_version": "1.1",
+	"dependencies": [
+		"base >= 1.1",
+		"NindyCore >= 1.0.0"
+	]
+}
