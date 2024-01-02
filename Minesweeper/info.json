@@ -1,12 +1,12 @@
 {
-	"name": "SingleUseBarrels",
-	"version": "1.0.2",
-	"title": "Single Use Barrels",
+	"name": "Minesweeper",
+	"version": "1.0.0",
+	"title": "Minesweeper",
 	"author": "NindyBun",
 	"homepage":"",
-	"description": "Introduces barrels that are single use so that you don't have to deal with empty ones.",
+	"description": "Minesweeper :)",
 	"factorio_version": "1.1",
 	"dependencies": [
-		"base >= 1.0"
+		"base >= 1.1"
 	]
 }
