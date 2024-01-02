@@ -1,0 +1,12 @@
+{
+	"name": "SingleUseBarrels",
+	"version": "1.0.2",
+	"title": "Single Use Barrels",
+	"author": "NindyBun",
+	"homepage":"",
+	"description": "Introduces barrels that are single use so that you don't have to deal with empty ones.",
+	"factorio_version": "1.1",
+	"dependencies": [
+		"base >= 1.0"
+	]
+}
