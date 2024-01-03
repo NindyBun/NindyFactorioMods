@@ -9,3 +9,8 @@ if not nindycore.core.gui.colors then nindycore.core.gui.colors = {} end
 
 require("scripts.constants")
 require("scripts.functions")
+require("scripts.gui")
+require("scripts.gui.colors")
+require("scripts.gui.fonts")
+require("scripts.gui.styles")
+require("scripts.gui.titles")
