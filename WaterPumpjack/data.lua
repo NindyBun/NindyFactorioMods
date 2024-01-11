@@ -1,6 +1,8 @@
 waterpumpID = "WP-"
 color = {r=0, g=0.6, b=1, a=1}
 
+require("__NindyCore__/scripts/values.lua")
+
 data:extend{
 	{
 		type="recipe-category",

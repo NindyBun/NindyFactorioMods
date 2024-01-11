@@ -22,7 +22,7 @@ function nindycore.core.gui.create_base_window(player, name, windowDirection, is
     end
     nindycore.core.gui.set_size(guiTable.gui, 10, 10)
     nindycore.core.gui.center_window(guiTable.gui)
-    nindycore.core.gui.add_close_button(guiTable.gui)
+    nindycore.core.gui.add_close_button(guiTable)
     return guiTable
 end
 
@@ -37,7 +37,7 @@ function nindycore.core.gui.create_title(guiTable)
     topBarFlow.style.padding = 0
     topBarFlow.style.margin = 0
 
-    local barTitle = {"gui-description." .. guiTable.gui.name .. "_Title"}
+    local barTitle = {"gui-description." .. guiTable.gui.name .. "-Title"}
     nindycore.core.gui.add_label(guiTable, "title", topBarFlow, barTitle, nindycore.core.gui.colors["orange"], nil, true, nindycore.core.gui.fonts["H-18"])
 
     local dragArea = nindycore.core.gui.add_empty_widget(guiTable, "", topBarFlow, guiTable.gui, 25)
@@ -79,13 +79,14 @@ function nindycore.core.gui.add_frame(guiTable, name, gui, direction, save)
     return frame
 end
 
-function nindycore.core.gui.add_scroll_pane(guiTable, name, gui, size, save, style, scroll_verically, scroll_horizontally)
+function nindycore.core.gui.add_scroll_pane(guiTable, name, gui, width, height, save, style, scroll_verically, scroll_horizontally)
     if name ~= nil and name ~= "" and gui[name] ~= nil then gui[name].destroy() end
     local scrollPane = gui.add{type="scroll-pane", name=name, horizontal_scroll_policy=scroll_horizontally or "never", vertical_scroll_policy=scroll_verically or "always"}
     if style ~= nil then scrollPane.style = style end
     scrollPane.style.padding = 0
     scrollPane.style.margin = 0
-    scrollPane.style.maximal_height = size
+    scrollPane.style.maximal_height = height
+    scrollPane.style.maximal_width = width
     scrollPane.style.horizontally_stretchable = true
     if guiTable ~= nil and save == true then
         guiTable.vars[name] = scrollPane

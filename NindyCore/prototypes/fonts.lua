@@ -1,12 +1,3 @@
-nindycore.core.gui.fonts = {
-    ["14"] = nindycore.core.add_mod_tag("Font-14"),
-    ["16"] = nindycore.core.add_mod_tag("Font-16"),
-    ["B-14"] = nindycore.core.add_mod_tag("Font-B-14"),
-    ["SB-14"] = nindycore.core.add_mod_tag("Font-SB-14"),
-    ["H-18"] = nindycore.core.add_mod_tag("Font-H-18"),
-    ["LP-14"] = nindycore.core.add_mod_tag("Font-LP-14"),
-}
-
 -----------------------------------------------------------------------Defaults--------------------------------------------------------------------------------------------------
 data:extend{
     {
@@ -37,6 +28,12 @@ data:extend{
         type = "font",
 		name = nindycore.core.gui.fonts["SB-14"],
 		size = 14,
+		from = "default-semibold"
+    },
+    {
+        type = "font",
+		name = nindycore.core.gui.fonts["SB-20"],
+		size = 20,
 		from = "default-semibold"
     },
 }
