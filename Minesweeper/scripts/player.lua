@@ -370,7 +370,7 @@ end
 
 function P.interaction(event, msPlayer)
     local tags = event.element.tags
-    --local guiTable = msPlayer.gui[nindycore.core.gui.titles["main"]]
+    local guiTable = msPlayer.gui[nindycore.core.gui.titles["main"]]
     local click = -1
     if event.button == defines.mouse_button_type.left then click = 0 end --Show
 	if event.button == defines.mouse_button_type.right then click = 1 end --Flag
@@ -409,6 +409,7 @@ function P.interaction(event, msPlayer)
             end
         elseif click == 1 then
             msPlayer:flag_tile(button)
+            guiTable.vars["Flags"].caption = {"gui-description."..nindycore.core.add_mod_tag(minesweeper_id.."Flags"), msPlayer.flags}
         end
         return
     end

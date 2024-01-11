@@ -42,7 +42,7 @@ function nindycore.minesweeper.gui.on_gui_clicked(event)
 
     if string.match(eName, nindycore.core.gsub(nindycore.core.add_mod_tag(minesweeper_id.."Game"), "%-", "_")) ~= nil then
         P.interaction(event, msPlayer)
-        nindycore.minesweeper.gui.update_gui(msPlayer)
+        --nindycore.minesweeper.gui.update_gui(msPlayer)
         return
     end
 end
