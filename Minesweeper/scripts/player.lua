@@ -160,9 +160,11 @@ function P:show_tile(button)
     if button.is_flaged then sprite = nindycore.minesweeper.sprites["flag"] end
     if sprite == "" then return end
     if not button.is_enabled then
-        nindycore.minesweeper.gui.switch_button_style(button.button, nindycore.core.gui.styles["B-2"], 37)
+        local style = button.tile_id > 0 and nindycore.minesweeper.gui.styles["B-1"] or nindycore.core.gui.styles["B-2"]
+        nindycore.minesweeper.gui.switch_button_style(button.button, style, 37)
         nindycore.minesweeper.gui.change_button_icon(button.button, sprite)
-        button.style = nindycore.core.gui.styles["B-2"]
+        if button.tile_id > 0 then nindycore.minesweeper.gui.change_button_mouse_filter(button.button, {"middle"}) end
+        button.style = style
         button.sprite = sprite
     elseif button.is_enabled and button.is_flaged then
         nindycore.minesweeper.gui.change_button_icon(button.button, sprite)
@@ -181,6 +183,76 @@ function P:flag_tile(button)
         button.sprite = nindycore.core.sprites["blank32"]
         self.flags = self.flags + 1
         button.is_flaged = false
+    end
+end
+
+function P:validate_chord(button)
+    local buttons = {}
+    local flags = 0
+    local target_flags = button.tile_id
+    local row_index = button.row
+    local column_index = button.column
+
+    --Checks Top Left
+    if row_index > 1 and column_index > 1 then
+        if self.board[row_index-1][column_index-1].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index-1][column_index-1])
+    end
+    --Checks Top
+    if row_index > 1 then
+        if self.board[row_index-1][column_index].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index-1][column_index])
+    end
+    --Checks Top Right
+    if row_index > 1 and column_index < self.width then
+        if self.board[row_index-1][column_index+1].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index-1][column_index+1])
+    end
+    --Checks Left
+    if column_index > 1 then
+        if self.board[row_index][column_index-1].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index][column_index-1])
+    end
+    --Checks Right
+    if column_index < self.width then
+        if self.board[row_index][column_index+1].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index][column_index+1])
+    end
+    --Checks Bottom Left
+    if row_index < self.height and column_index > 1 then
+        if self.board[row_index+1][column_index-1].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index+1][column_index-1])
+    end
+    --Checks Bottom
+    if row_index < self.height then
+        if self.board[row_index+1][column_index].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index+1][column_index])
+    end
+    --Checks Bottom Right
+    if row_index < self.height and column_index < self.width then
+        if self.board[row_index+1][column_index+1].is_flaged then flags = flags + 1 end
+        table.insert(buttons, self.board[row_index+1][column_index+1])
+    end
+
+    if flags ~= target_flags then return end
+    for _, button in pairs(buttons) do
+        if button.tile_id == -1 and not button.is_flaged then
+            self:lose_game(button)
+            return
+        elseif not button.is_flaged and button.is_enabled then
+            button.is_enabled = false
+            self.hiddenTiles = self.hiddenTiles - 1
+            if button.tile_id == 0 then
+                local tiles = {}
+                table.insert(tiles, button)
+                self:reveal_zeros(tiles)
+            else
+                self:show_tile(button)
+            end
+            if self.hiddenTiles ==self.mines then
+                self:win_game()
+            end
+        end
     end
 end
 
@@ -374,6 +446,7 @@ function P.interaction(event, msPlayer)
     local click = -1
     if event.button == defines.mouse_button_type.left then click = 0 end --Show
 	if event.button == defines.mouse_button_type.right then click = 1 end --Flag
+    if event.button == defines.mouse_button_type.middle then click = 2 end --Chord
     if click == -1 then return end
 
     if string.match(event.element.name, "MineButton") ~= nil then
@@ -387,9 +460,8 @@ function P.interaction(event, msPlayer)
         end
 
         if msPlayer.gameStarted and msPlayer.gameFinished then return end
-        if not button.is_enabled then return end
 
-        if click == 0 and not button.is_flaged then
+        if click == 0 and not button.is_flaged and button.is_enabled then
             if button.tile_id == -1 then
                 button.is_enabled = false
                 msPlayer:lose_game(button)
@@ -407,9 +479,11 @@ function P.interaction(event, msPlayer)
                     msPlayer:win_game()
                 end
             end
-        elseif click == 1 then
+        elseif click == 1 and button.is_enabled then
             msPlayer:flag_tile(button)
             guiTable.vars["Flags"].caption = {"gui-description."..nindycore.core.add_mod_tag(minesweeper_id.."Flags"), msPlayer.flags}
+        elseif click == 2 and not button.is_enabled and button.tile_id > 0 then
+            msPlayer:validate_chord(button)
         end
         return
     end

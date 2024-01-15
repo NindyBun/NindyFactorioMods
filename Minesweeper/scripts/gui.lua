@@ -76,3 +76,8 @@ function nindycore.minesweeper.gui.change_button_icon(button, default, hover, cl
     button.clicked_sprite = click or default
     return
 end
+
+function nindycore.minesweeper.gui.change_button_mouse_filter(button, filter)
+    if button == nil or button.valid == false then return end
+    button.mouse_button_filter = filter
+end
