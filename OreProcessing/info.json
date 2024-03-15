@@ -1,0 +1,13 @@
+{
+	"name": "OreProcessing",
+	"version": "1.0.0",
+	"title": "5x Ore Processing Facilty",
+	"author": "NindyBun",
+	"homepage":"",
+	"description": "Requires Nindy's Core mod.\n\nAdds a series of machines that can increase the yeal of processed ores.",
+	"factorio_version": "1.1",
+	"dependencies": [
+		"base >= 1.1",
+		"NindyCore >= 1.0.3"
+	]
+}
